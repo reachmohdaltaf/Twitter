@@ -1,20 +1,25 @@
 import express from "express";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import authroutes from "./routes/auth.routes.js";
 import connectMongoDB from "./db/connectMongoDB.js";
-dotenv.config()
+import cookieParser from "cookie-parser";
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 // console.log(process.env.MONGO_URI)
+
+//middleware for parse to json
+app.use(express.json());
+app.use(express.urlencoded({extended: true})) //parse encoded
+
+app.use(cookieParser())
 
 //middleware for authentication
 app.use("/api/auth", authroutes);
 
-
-
 //listening to the port
 app.listen(PORT, () => {
   console.log(`SERVER STARTED AT ${PORT}`);
-  connectMongoDB()
+  connectMongoDB();
 });
