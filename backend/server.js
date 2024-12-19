@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import authroutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import postRoutes from "./routes/post.routes.js";
 import connectMongoDB from "./db/connectMongoDB.js";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
@@ -24,6 +25,7 @@ app.use(cookieParser())
 //middleware for authentication
 app.use("/api/auth", authroutes);
 app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
 
 //listening to the port
 app.listen(PORT, () => {
